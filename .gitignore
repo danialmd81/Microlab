@@ -1,0 +1,63 @@
+# Ignore build directories
+/build/
+/Debug/
+/Release/
+
+# Ignore vscode directories
+/.vscode/
+*/*/.vscode/
+
+# Ignore object files, binaries, and other build artifacts
+*.o
+*.a
+*.out
+*.hex
+*.elf
+*.bin
+*.d
+*.crf
+*.axf
+*.htm
+*.lnp
+*.sct
+*.dbgconf
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE specific files
+*.swp
+*.swo
+*.bak
+*.log
+*.tmp
+*.user
+*.cproject
+*.project
+*.settings/
+
+# Ignore auto-generated files
+*.d
+*.map
+*.lst
+*.srec
+*.dep
+*.dmp
+*.su
+*.idb
+*.pdb
+*.ilk
+*.aps
+*.ncb
+*.opt
+*.plg
+*.suo
+*.user
+*.sdf
+*.ipch
+*.tlog
+*.lastbuildstate
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
