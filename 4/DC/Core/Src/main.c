@@ -173,7 +173,7 @@ int main(void)
 			disp = 0;
 		if (disp == 1)
 		{
-			sprintf(str, "RPM=%d", (int)RPM_new);
+			sprintf(str, "RPM=%d", (int)incap_new - incap_old);
 			LCD1602_clear();
 			LCD1602_print(str);
 			disp = 0;
