@@ -1,6 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
 File.Version=6
-GPIO.groupedBy=
+GPIO.groupedBy=Group By Peripherals
 KeepUserPlacement=false
 Mcu.CPN=STM32F407VGT6
 Mcu.Family=STM32F4
@@ -32,6 +32,7 @@ NVIC.PendSV_IRQn=true\:0\:0\:false\:false\:true\:false\:false\:true
 NVIC.PriorityGroup=NVIC_PRIORITYGROUP_4
 NVIC.SVCall_IRQn=true\:0\:0\:false\:false\:true\:false\:false\:true
 NVIC.SysTick_IRQn=true\:15\:0\:false\:false\:true\:false\:true\:true
+NVIC.TIM2_IRQn=true\:0\:0\:false\:false\:true\:true\:true\:true
 NVIC.UsageFault_IRQn=true\:0\:0\:false\:false\:true\:false\:false\:true
 PC0.Locked=true
 PC0.Signal=GPIO_Output
@@ -101,7 +102,7 @@ RCC.VCOInputFreq_Value=2000000
 RCC.VCOOutputFreq_Value=168000000
 RCC.VcooutputI2S=192000000
 TIM2.IPParameters=Period,Prescaler
-TIM2.Period=49999
+TIM2.Period=999999
 TIM2.Prescaler=41
 VP_SYS_VS_Systick.Mode=SysTick
 VP_SYS_VS_Systick.Signal=SYS_VS_Systick
