@@ -46,7 +46,7 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-int count = 0, sec = 0, min = 50, hour = 9;
+int count = 0, sec = 0, min = 51, hour = 9;
 char flag = 0;
 
 /* USER CODE END PV */
