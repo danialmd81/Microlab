@@ -6,6 +6,7 @@
 # Ignore vscode directories
 /.vscode/
 */*/.vscode/
+*/*/*/.vscode/*
 
 # Ignore object files, binaries, and other build artifacts
 *.o
