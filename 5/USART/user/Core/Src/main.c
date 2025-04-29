@@ -44,15 +44,21 @@
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-char input = 0;
-char flag = 0;
-char name[15] = { 0 };
-char username[15] = { 0 };
-char username1[15] = { 0 };
-char pass[15] = { 0 };
-char pass1[15] = { 0 };
-char i = 0;
+// char input = 0;
+// char flag = 0;
+// char name[15] = { 0 };
+// char username[15] = { 0 };
+// char username1[15] = { 0 };
+// char pass[15] = { 0 };
+// char pass1[15] = { 0 };
+// char i = 0;
 
+char reg_name[8];
+char reg_username[8];
+char reg_password[8];
+
+char input_username[8];
+char input_password[8];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -65,95 +71,33 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
+// void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
+// {
+// 	HAL_UART_Transmit(&huart1, &input, 1, 100);
+// 	HAL_UART_Receive_IT(&huart1, &input, 1);
+// }
+
+void uart_send(const char* msg)
 {
-	HAL_UART_Transmit(&huart1, &input, 1, 100);
-	HAL_UART_Receive_IT(&huart1, &input, 1);
+	HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 }
 
-void getStr(char* str[])
+void uart_receive_line(char* buf, uint16_t maxlen)
 {
-	int a = 0;
-	while (input != '=')
+	uint16_t idx = 0;
+	char ch;
+	while (idx < maxlen - 1)
 	{
-		str[a] = input;
-		HAL_UART_Transmit(&huart1, &input, 1, 100);
-		HAL_UART_Receive_IT(&huart1, &input, 1);
-		a++;
-	}
-	if (input == '=')
-	{
-		str[a] = '\0';
-		// HAL_UART_Transmit(&huart1, str, 15, 100);
-		char t = '\n';
-		HAL_UART_Transmit(&huart1, &t, 1, 100);
-		flag++;
-		flag %= 6;
-	}
-}
-
-void user()
-{
-	char str[15] = { 0 };
-	i = 0;
-	if (flag == 0)
-	{
-		sprintf(str, "1_Name:");
-		HAL_UART_Transmit(&huart1, str, 15, 100);
-		getStr(name);
-	}
-	else if (flag == 1)
-	{
-		memset(str, 0, sizeof(str));
-		sprintf(str, "2_Username:");
-		getStr(username);
-	}
-	else if (flag == 2)
-	{
-		memset(str, 0, sizeof(str));
-		sprintf(str, "3_Password:");
-		getStr(pass);
-	}
-	else if (flag == 3)
-	{
-		memset(str, 0, sizeof(str));
-		sprintf(str, "_username:");
-		getStr(username1);
-	}
-	else if (flag == 4)
-	{
-		memset(str, 0, sizeof(str));
-		sprintf(str, "_password:");
-		getStr(pass1);
-	}
-	else if (flag == 5)
-	{
-		memset(str, 0, sizeof(str));
-		sprintf(str, "login\n");
-		getStr(username);
-	}
-
-	i = 0;
-
-	HAL_UART_Transmit(&huart1, str, 15, 100);
-	if (flag == 5)
-	{
-		HAL_UART_Transmit(&huart1, username, 15, 100);
-		HAL_UART_Transmit(&huart1, pass, 15, 100);
-		HAL_UART_Transmit(&huart1, username1, 15, 100);
-		HAL_UART_Transmit(&huart1, pass1, 15, 100);
-		char temp[30] = { 0 };
-		if (strcmp(pass, pass1) == 0 && strcmp(username, username1) == 0)
+		if (HAL_UART_Receive(&huart1, &ch, 1, HAL_MAX_DELAY) == HAL_OK)
 		{
-			sprintf(temp, "welcome %s", name);
-			HAL_UART_Transmit(&huart1, temp, 30, 100);
-		}
-		else
-		{
-			sprintf(temp, "wrong password or username");
-			HAL_UART_Transmit(&huart1, temp, 30, 100);
+			if (ch == '\r' || ch == '\n')
+				break;
+			buf[idx++] = ch;
+			HAL_UART_Transmit(&huart1, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
+			// uart_send((char*)&ch);
 		}
 	}
+	buf[idx] = '\0';
 }
 
 /* USER CODE END 0 */
@@ -188,7 +132,35 @@ int main(void)
 	MX_GPIO_Init();
 	MX_USART1_UART_Init();
 	/* USER CODE BEGIN 2 */
-	user();
+	// user();
+
+	uart_send("Enter your Name: ");
+	uart_receive_line(reg_name, 8);
+
+	uart_send(" Enter Username: ");
+	uart_receive_line(reg_username, 8);
+
+	uart_send(" Enter Password: ");
+	uart_receive_line(reg_password, 8);
+
+	uart_send("\r\nLogin\r\n");
+
+	uart_send("Username: ");
+	uart_receive_line(input_username, 8);
+
+	uart_send(" Password: ");
+	uart_receive_line(input_password, 8);
+
+	if (strcmp(reg_username, input_username) == 0 && strcmp(reg_password, input_password) == 0)
+	{
+		uart_send("\r\nWelcome, ");
+		uart_send(reg_name);
+		uart_send("\r\n");
+	}
+	else
+	{
+		uart_send("\r\nError: Invalid Username or Password\r\n");
+	}
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
