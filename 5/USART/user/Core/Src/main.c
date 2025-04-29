@@ -137,10 +137,10 @@ int main(void)
 	uart_send("Enter your Name: ");
 	uart_receive_line(reg_name, 8);
 
-	uart_send(" Enter Username: ");
+	uart_send("\r\nEnter Username: ");
 	uart_receive_line(reg_username, 8);
 
-	uart_send(" Enter Password: ");
+	uart_send("\r\nEnter Password: ");
 	uart_receive_line(reg_password, 8);
 
 	uart_send("\r\nLogin\r\n");
@@ -148,7 +148,7 @@ int main(void)
 	uart_send("Username: ");
 	uart_receive_line(input_username, 8);
 
-	uart_send(" Password: ");
+	uart_send("\r\nPassword: ");
 	uart_receive_line(input_password, 8);
 
 	if (strcmp(reg_username, input_username) == 0 && strcmp(reg_password, input_password) == 0)
