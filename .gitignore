@@ -62,3 +62,5 @@ Thumbs.db
 *.opensdf
 *.VC.db
 *.VC.VC.opendb
+*/.vscode/*
+*/*/.vscode/*
