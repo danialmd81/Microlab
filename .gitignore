@@ -64,3 +64,8 @@ Thumbs.db
 *.VC.VC.opendb
 */.vscode/*
 */*/.vscode/*
+
+proteus/*
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
