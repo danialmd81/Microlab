@@ -94,22 +94,24 @@ int main(void)
 	{
 		for (int num = 0; num <= 9999; num++)
 		{
-			for (int t = 0; t < 100; t++) // Display each number for ~100*4ms = 400ms
+			for (int repeat = 0; repeat < 50; repeat++)
 			{
 				int n = num;
-				for (int d = 0; d < 4; d++)
+				for (int digit_pos = 0; digit_pos < 4; digit_pos++)
 				{
 					// Extract digit (rightmost first)
-					int val = n % 10;
+					int d = n % 10;
 					n /= 10;
 
-					// Set segments for this digit
-					GPIOA->ODR = (GPIOA->ODR & 0xFFFFFF00) | digit[val];
+					// Set segments (PA0-PA7)
+					HAL_GPIO_WritePin(GPIOA, 0xFF, GPIO_PIN_RESET); // Clear all segments
+					HAL_GPIO_WritePin(GPIOA, digit[d], GPIO_PIN_SET);
 
-					// Enable only the current digit (PE0–PE3)
-					GPIOE->ODR = (GPIOE->ODR & 0xFFFFFFF0) | (1 << d);
+					// Enable only the current digit (PE0-PE3 active LOW)
+					HAL_GPIO_WritePin(GPIOE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, GPIO_PIN_SET); // All off
+					HAL_GPIO_WritePin(GPIOE, (1 << digit_pos), GPIO_PIN_RESET); // Enable current
 
-					HAL_Delay(1); // 1ms per digit
+					HAL_Delay(2); // Small delay for persistence
 				}
 			}
 		}
