@@ -72,3 +72,4 @@ Thumbs.db
 */*/*/MDK-ARM/DebugConfig/*
 */*/MDK-ARM/RTE/*
 */*/*/MDK-ARM/RTE/*
+*.pdsbak
