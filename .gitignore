@@ -68,7 +68,7 @@ Thumbs.db
 .vscode/tasks.json
 .vscode/launch.json
 
-*/*/MDK-ARM/DebugConfig
-*/*/*/MDK-ARM/DebugConfig
-*/*/MDK-ARM/RTE
-*/*/*/MDK-ARM/RTE
+*/*/MDK-ARM/DebugConfig/*
+*/*/*/MDK-ARM/DebugConfig/*
+*/*/MDK-ARM/RTE/*
+*/*/*/MDK-ARM/RTE/*
